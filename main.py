@@ -1,6 +1,7 @@
 # Copyright (c) 2021 TOYOTA MOTOR CORPORATION. Licensed under MIT OR Apache-2.0.
 
 import dash
+from dash.dependencies import Input, Output
 import dash_cytoscape as cyto
 from dash import html
 
@@ -13,12 +14,12 @@ app = dash.Dash(__name__)
 
 app.layout = html.Main([
     html.Div([
-        html.Pre(id='cytoscape-tapNodeData-json', style=STYLES['pre']),
+        html.Pre(id='stream-name', style=STYLES['pre']),
     ], id='detail', style=styles.left_pane()),
 
     html.Div([
         cyto.Cytoscape(
-            id='cytoscape-two-nodes',
+            id='cytoscape-pipeline',
             layout={
                 'name': 'breadthfirst',
                 'roots': '.source-stream'
@@ -29,6 +30,17 @@ app.layout = html.Main([
         )
     ], id='pipeline', style=styles.right_pane()),
 ], style=styles.main())
+
+
+@app.callback(Output('stream-name', 'children'),
+              Input('cytoscape-pipeline', 'selectedNodeData'))
+def displaySelectedStream(stream_list):
+    if stream_list is None:
+        return "No stream selected."
+
+    stream = stream_list[0]
+    return stream['label']
+
 
 if __name__ == '__main__':
     app.run_server(debug=True)

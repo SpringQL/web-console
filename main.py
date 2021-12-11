@@ -11,13 +11,61 @@ app.layout = html.Div([
         id='cytoscape-two-nodes',
         layout={
             'name': 'breadthfirst',
-            'roots': '#one'
+            'roots': '.source-stream'
         },
         style={'width': '100%', 'height': '800px'},
+        stylesheet=[
+            {
+                'selector': 'node',
+                'style': {
+                    'label': 'data(id)'
+                }
+            },
+            {
+                'selector': 'edge',
+                'style': {
+                    'curve-style': 'bezier',  # The default curve style does not work with certain arrows
+                    'target-arrow-shape': 'triangle',
+                }
+            },
+        ],
         elements=[
-            {'data': {'id': 'one', 'label': 'Node 1'}},
-            {'data': {'id': 'two', 'label': 'Node 2'}},
-            {'data': {'source': 'one', 'target': 'two'}}
+            # nodes
+            {
+                'data': {'id': 'src_engine', 'label': 'src_engine'},
+                'classes': 'source-stream',
+            },
+            {
+                'data': {'id': 'sampled_engine', 'label': 'sampled_engine'},
+                'classes': 'stream',
+            },
+
+            {
+                'data': {'id': 'src_vehicle_control', 'label': 'src_vehicle_control'},
+                'classes': 'source-stream',
+            },
+            {
+                'data': {'id': 'sampled_speed', 'label': 'sampled_speed'},
+                'classes': 'stream',
+            },
+            {
+                'data': {'id': 'sampled_phy_speed', 'label': 'sampled_phy_speed'},
+                'classes': 'stream',
+            },
+
+            {
+                'data': {'id': 'engine_speed', 'label': 'engine_speed'},
+                'classes': 'stream',
+            },
+
+            # edges
+            {'data': {'source': 'src_engine', 'target': 'sampled_engine'}},
+
+            {'data': {'source': 'src_vehicle_control', 'target': 'sampled_speed'}},
+            {'data': {'source': 'sampled_speed', 'target': 'sampled_phy_speed'}},
+
+            {'data': {'source': 'sampled_engine', 'target': 'engine_speed'}},
+            {'data': {'source': 'sampled_phy_speed', 'target': 'engine_speed'}},
         ]
     )
 ])

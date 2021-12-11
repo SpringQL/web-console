@@ -6,9 +6,29 @@ from app import app
 
 @app.callback(Output('stream-name', 'children'),
               Input('cytoscape-pipeline', 'selectedNodeData'))
-def displaySelectedStream(stream_list):
-    if stream_list is None:
-        return "No stream selected."
+def updateStreamName(nodes):
+    if nodes is None:
+        return "(no stream selected)"
 
-    stream = stream_list[0]
+    stream = nodes[0]
     return stream['label']
+
+
+@app.callback(Output('stream-def-content', 'children'),
+              Input('cytoscape-pipeline', 'selectedNodeData'))
+def updateStreamDefContent(nodes):
+    if nodes is None:
+        return ""
+
+    stream = nodes[0]
+    return stream['stream-def']
+
+
+@app.callback(Output('stream-upstream-content', 'children'),
+              Input('cytoscape-pipeline', 'selectedNodeData'))
+def updateStreamUpstreamContent(nodes):
+    if nodes is None:
+        return ""
+
+    stream = nodes[0]
+    return stream['stream-upstream']

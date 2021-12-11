@@ -7,15 +7,24 @@ from app import app
 
 import callbacks as _
 import styles
-from styles import STYLES
 from cytospace_stylesheet import CYTOSPACE_STYLESHEET
 from cytospace_elements import CYTOSPACE_ELEMENTS
 
 
 app.layout = html.Main([
     html.Div([
-        html.Pre(id='stream-name', style=STYLES['pre']),
-    ], id='detail', style=styles.left_pane()),
+        html.H3(id='stream-name'),
+
+        html.H4('Stream Definition', id='stream-def'),
+        html.Pre(children=[
+            html.Code(id='stream-def-content'),
+        ]),
+
+        html.H4('Upstream Pump', id='stream-upstream'),
+        html.Pre(children=[
+            html.Code(id='stream-upstream-content')
+        ]),
+    ], id='stream-view', style=styles.left_pane()),
 
     html.Div([
         cyto.Cytoscape(
@@ -28,7 +37,7 @@ app.layout = html.Main([
             stylesheet=CYTOSPACE_STYLESHEET,
             elements=CYTOSPACE_ELEMENTS,
         )
-    ], id='pipeline', style=styles.right_pane()),
+    ], id='pipeline-view', style=styles.right_pane()),
 ], style=styles.main())
 
 

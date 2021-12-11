@@ -4,17 +4,17 @@ import dash
 import dash_cytoscape as cyto
 from dash import html
 
+import styles
 from styles import STYLES
 from cytospace_stylesheet import CYTOSPACE_STYLESHEET
 from cytospace_elements import CYTOSPACE_ELEMENTS
 
 app = dash.Dash(__name__)
 
-app.layout = html.Div([
+app.layout = html.Main([
     html.Div([
         html.Pre(id='cytoscape-tapNodeData-json', style=STYLES['pre']),
-    ],
-        id='detail-pane'),
+    ], id='detail', style=styles.left_pane()),
 
     html.Div([
         cyto.Cytoscape(
@@ -27,8 +27,8 @@ app.layout = html.Div([
             stylesheet=CYTOSPACE_STYLESHEET,
             elements=CYTOSPACE_ELEMENTS,
         )
-    ], id='pipeline-pane')
-])
+    ], id='pipeline', style=styles.right_pane()),
+], style=styles.main())
 
 if __name__ == '__main__':
     app.run_server(debug=True)

@@ -3,15 +3,42 @@
 CYTOSPACE_STYLESHEET = [
     {
         'selector': 'node',
-                    'style': {
-                        'label': 'data(id)'
-                    }
+        'style': {
+            'label': 'data(id)',
+            'shape': 'rectangle',
+            "text-background-color": "#fff",
+            "text-background-opacity": "0.5",
+            "text-valign": "center",
+        }
+    },
+    {
+        'selector': 'node.source-stream',
+        'style': {
+            'shape': 'triangle',
+        }
+    },
+    {
+        'selector': 'node.sink-stream',
+        'style': {
+            'shape': 'diamond',
+        }
     },
     {
         'selector': 'edge',
-                    'style': {
-                        'curve-style': 'bezier',  # The default curve style does not work with certain arrows
-                        'target-arrow-shape': 'triangle',
-                    }
+        'style': {
+            'curve-style': 'bezier',  # The default curve style does not work with certain arrows
+            'target-arrow-shape': 'triangle',
+            "arrow-scale": 2.5,
+        }
+    },
+    {
+        'selector': 'edge[queue_label]',
+        'style': {
+            "label": "data(queue_label)",
+            "text-rotation": "autorotate",
+            "text-wrap": "wrap",
+            "text-background-color": "#fff",
+            "text-background-opacity": "0.5",
+        }
     },
 ]

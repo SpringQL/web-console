@@ -11,7 +11,7 @@ Updates pipeline for Pipeline View.
 ### Example
 
 ```bash
-curl -X POST -H "Content-Type: application/json" -d @example/healthy-in-vehicle.json http://localhost:8050/pipeline
+curl -L -X POST -H "Content-Type: application/json" -d @example/healthy-in-vehicle.json http://localhost:8050/pipeline
 ```
 
 ### Request Body Parameters

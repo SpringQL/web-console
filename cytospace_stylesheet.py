@@ -6,6 +6,9 @@ CYTOSPACE_STYLESHEET = [
         'style': {
             'label': 'data(id)',
             'shape': 'rectangle',
+            "text-background-color": "#fff",
+            "text-background-opacity": "0.5",
+            "text-valign": "center",
         }
     },
     {
@@ -32,9 +35,9 @@ CYTOSPACE_STYLESHEET = [
         'style': {
             "label": "data(queue_label)",
             "text-rotation": "autorotate",
-            "text-margin-x": "1em",
-            "text-margin-y": "0.5em",
             "text-wrap": "wrap",
+            "text-background-color": "#fff",
+            "text-background-opacity": "0.5",
         }
     },
 ]

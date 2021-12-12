@@ -4,7 +4,7 @@ CYTOSPACE_ELEMENTS = [
     # nodes
     {
         'data': {
-            'id': 'src_air_conditioner', 'label': 'src_air_conditioner',
+            'id': 'src_air_conditioner',
             'stream-def':
             '''CREATE SOURCE STREAM src_air_conditioner (
                  ts TIMESTAMP NOT NULL ROWTIME,
@@ -22,7 +22,7 @@ CYTOSPACE_ELEMENTS = [
     },
     {
         'data': {
-            'id': 'air_conditioner', 'label': 'air_conditioner',
+            'id': 'air_conditioner',
             'stream-def': 'CREATE STREAM ...',
             'stream-upstream':
             '''CREATE PUMP pu_air_conditioner_phy_conversion AS
@@ -36,7 +36,7 @@ CYTOSPACE_ELEMENTS = [
 
     {
         'data': {
-            'id': 'ac_engine_speed', 'label': 'ac_engine_speed',
+            'id': 'ac_engine_speed',
             'stream-def': 'CREATE STREAM ...',
             'stream-upstream': 'CREATE PUMP ...',
         },
@@ -45,7 +45,7 @@ CYTOSPACE_ELEMENTS = [
 
     {
         'data': {
-            'id': 'sink_cockpit', 'label': 'sink_cockpit',
+            'id': 'sink_cockpit',
             'stream-def': 'CREATE STREAM ...',
             'stream-upstream': 'CREATE PUMP ...',
         },
@@ -54,7 +54,7 @@ CYTOSPACE_ELEMENTS = [
 
     {
         'data': {
-            'id': 'sink_upload', 'label': 'sink_upload',
+            'id': 'sink_upload',
             'stream-def': 'CREATE STREAM ...',
             'stream-upstream': 'CREATE PUMP ...',
         },
@@ -63,7 +63,7 @@ CYTOSPACE_ELEMENTS = [
 
     {
         'data': {
-            'id': 'src_engine', 'label': 'src_engine',
+            'id': 'src_engine',
             'stream-def': 'CREATE STREAM ...',
             'stream-upstream': 'CREATE PUMP ...',
         },
@@ -71,7 +71,7 @@ CYTOSPACE_ELEMENTS = [
     },
     {
         'data': {
-            'id': 'sampled_engine', 'label': 'sampled_engine',
+            'id': 'sampled_engine',
             'stream-def': 'CREATE STREAM ...',
             'stream-upstream': 'CREATE PUMP ...',
         },
@@ -80,7 +80,7 @@ CYTOSPACE_ELEMENTS = [
 
     {
         'data': {
-            'id': 'src_vehicle_control', 'label': 'src_vehicle_control',
+            'id': 'src_vehicle_control',
             'stream-def': 'CREATE STREAM ...',
             'stream-upstream': 'CREATE PUMP ...',
         },
@@ -88,7 +88,7 @@ CYTOSPACE_ELEMENTS = [
     },
     {
         'data': {
-            'id': 'sampled_speed', 'label': 'sampled_speed',
+            'id': 'sampled_speed',
             'stream-def': 'CREATE STREAM ...',
             'stream-upstream': 'CREATE PUMP ...',
         },
@@ -96,16 +96,7 @@ CYTOSPACE_ELEMENTS = [
     },
     {
         'data': {
-            'id': 'sampled_phy_speed', 'label': 'sampled_phy_speed',
-            'stream-def': 'CREATE STREAM ...',
-            'stream-upstream': 'CREATE PUMP ...',
-        },
-        'classes': 'stream',
-    },
-
-    {
-        'data': {
-            'id': 'engine_speed', 'label': 'engine_speed',
+            'id': 'sampled_phy_speed',
             'stream-def': 'CREATE STREAM ...',
             'stream-upstream': 'CREATE PUMP ...',
         },
@@ -114,7 +105,16 @@ CYTOSPACE_ELEMENTS = [
 
     {
         'data': {
-            'id': 'stop_detection', 'label': 'stop_detection',
+            'id': 'engine_speed',
+            'stream-def': 'CREATE STREAM ...',
+            'stream-upstream': 'CREATE PUMP ...',
+        },
+        'classes': 'stream',
+    },
+
+    {
+        'data': {
+            'id': 'stop_detection',
             'stream-def': 'CREATE STREAM ...',
             'stream-upstream': 'CREATE PUMP ...',
         },
@@ -122,7 +122,7 @@ CYTOSPACE_ELEMENTS = [
     },
     {
         'data': {
-            'id': 'sink_stop_detection', 'label': 'sink_stop_detection',
+            'id': 'sink_stop_detection',
             'stream-def': 'CREATE STREAM ...',
             'stream-upstream': 'CREATE PUMP ...',
         },
@@ -131,7 +131,7 @@ CYTOSPACE_ELEMENTS = [
 
     {
         'data': {
-            'id': 'sink_health_check', 'label': 'sink_health_check',
+            'id': 'sink_health_check',
             'stream-def': 'CREATE STREAM ...',
             'stream-upstream': 'CREATE PUMP ...',
         },

@@ -29,22 +29,22 @@ curl -X POST -H "Content-Type: application/json" -d @example/healthy-in-vehicle.
   - `"stream"`
   - `"sink-stream"`
 - `"stream-def:"` (String): `CREATE (SOURCE|SINK) STREAM` statement.
-- `"stream-upstream-pump-def:"` (optional String): Upstream's `CREATE PUMP` statement. `null` for source streams.
 
 #### _Pump_ object
 
 - `"id:"` (String): Pump name.
-- `"upstream-id:"` (String): Upstream's stream name.
-- `"downstream-id:"` (String): Downstream's stream name.
+- `"pump-def:"` (String): `CREATE PUMP` statement.
 - `"state:"` (String): One of:
   - `"stopped"`
   - `"started-operational"`
-  - `"started-jammed"`: Sub-graph in which this pump is included gets jammed.
-  - `"started-critical"`: Rows in this pump's queue may be lost for severe memory usage.
-- `"queue:"` (Object): _Queue_.
+  - `"started-jammed"`: Sub-graph in which this pump is included gets jammed. Scheduler may prioritize this sub-graph.
+  - `"started-critical"`: Sub-graph in which this pump is included consumes too much memory. Scheduler may prioritize this sub-graph but rows may be lost from this pump's queue.
+- `"queues:"` (Array of Object): _Queue_'s.
 
 #### _Queue_ object
 
+- `"upstream-id:"` (String): Upstream's stream name.
+- `"downstream-id:"` (String): Downstream's stream name.
 - `"num-rows":` (Number): Number of rows in queue.
-- `"memory-usage-killobytes":` (Number): How much memory is used by queue [KB].
+- `"memory-usage-kilobytes":` (Number): How much memory is used by queue [KB].
 - `"num-rows-lost-so-far":` (Number): Number of rows lost so far.

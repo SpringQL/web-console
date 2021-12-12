@@ -7,8 +7,8 @@ from app import app
 
 import callbacks as _
 import styles
-from cytospace_stylesheet import CYTOSPACE_STYLESHEET
-from cytospace_elements import CYTOSPACE_ELEMENTS
+from cytoscape_stylesheet import CYTOSCAPE_STYLESHEET
+from cytoscape_elements import CYTOSCAPE_ELEMENTS
 
 
 app.layout = html.Main([
@@ -34,8 +34,8 @@ app.layout = html.Main([
                 'roots': '.source-stream'
             },
             style={'width': '100%', 'height': '800px'},
-            stylesheet=CYTOSPACE_STYLESHEET,
-            elements=CYTOSPACE_ELEMENTS,
+            stylesheet=CYTOSCAPE_STYLESHEET,
+            elements=CYTOSCAPE_ELEMENTS,
         )
     ], id='pipeline-view', style=styles.right_pane()),
 ], style=styles.main())

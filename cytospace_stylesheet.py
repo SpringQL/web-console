@@ -28,6 +28,7 @@ CYTOSPACE_STYLESHEET = [
         'style': {
             'curve-style': 'bezier',  # The default curve style does not work with certain arrows
             'target-arrow-shape': 'triangle',
+            "arrow-scale": 2.5,
         }
     },
     {

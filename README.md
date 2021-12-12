@@ -2,7 +2,7 @@
 
 ## Features
 
-- Pipeline / Resource View
+- Pipeline View
 
 ## Get Started
 

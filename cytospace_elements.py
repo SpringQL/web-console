@@ -24,7 +24,7 @@ CYTOSPACE_ELEMENTS = [
         'data': {
             'id': 'air_conditioner', 'label': 'air_conditioner',
             'stream-def': 'CREATE STREAM ...',
-            'stream-upstream': 
+            'stream-upstream':
             '''CREATE PUMP pu_air_conditioner_phy_conversion AS
               INSERT INTO air_conditioner (ts, car_temperature, phy_out_temperature)
               SELECT ts, car_temperature, raw_out_temperature * 0.28
@@ -140,59 +140,85 @@ CYTOSPACE_ELEMENTS = [
 
     # edges
     {'data': {
-        'source': 'src_air_conditioner', 'target': 'air_conditioner'},
+        'source': 'src_air_conditioner', 'target': 'air_conditioner',
+        'queue': '{"rows":3,"KB":28}',
+    },
 
-     },
+    },
     {'data': {
-        'source': 'air_conditioner', 'target': 'ac_engine_speed'},
+        'source': 'air_conditioner', 'target': 'ac_engine_speed',
+        'queue': '{"rows:0","KB":0}',
+    },
 
-     },
+    },
     {'data': {
-        'source': 'ac_engine_speed', 'target': 'sink_cockpit'},
+        'source': 'ac_engine_speed', 'target': 'sink_cockpit',
+        'queue': '{"rows:0","KB":0}',
+    },
 
-     },
+    },
     {'data': {
-        'source': 'ac_engine_speed', 'target': 'sink_upload'},
+        'source': 'ac_engine_speed', 'target': 'sink_upload',
+        'queue': '{"rows:0","KB":0}',
+    },
 
-     },
-
-    {'data': {
-        'source': 'src_engine', 'target': 'sampled_engine'},
-
-     },
-
-    {'data': {
-        'source': 'src_vehicle_control', 'target': 'sampled_speed'},
-
-     },
-    {'data': {
-        'source': 'sampled_speed', 'target': 'sampled_phy_speed'},
-
-     },
+    },
 
     {'data': {
-        'source': 'sampled_engine', 'target': 'engine_speed'},
+        'source': 'src_engine', 'target': 'sampled_engine',
+        'queue': '{"rows:0","KB":0}',
+    },
 
-     },
-    {'data': {
-        'source': 'sampled_phy_speed', 'target': 'engine_speed'},
-
-     },
+    },
 
     {'data': {
-        'source': 'engine_speed', 'target': 'sink_health_check'},
+        'source': 'src_vehicle_control', 'target': 'sampled_speed',
+        'queue': '{"rows:0","KB":0}',
+    },
 
-     },
+    },
     {'data': {
-        'source': 'engine_speed', 'target': 'ac_engine_speed'},
+        'source': 'sampled_speed', 'target': 'sampled_phy_speed',
+        'queue': '{"rows:0","KB":0}',
+    },
 
-     },
+    },
 
     {'data': {
-        'source': 'sampled_phy_speed', 'target': 'stop_detection'},
+        'source': 'sampled_engine', 'target': 'engine_speed',
+        'queue': '{"rows:0","KB":0}',
+    },
 
-     },
+    },
     {'data': {
-        'source': 'stop_detection', 'target': 'sink_stop_detection'},
-     },
+        'source': 'sampled_phy_speed', 'target': 'engine_speed',
+        'queue': '{"rows:0","KB":0}',
+    },
+
+    },
+
+    {'data': {
+        'source': 'engine_speed', 'target': 'sink_health_check',
+        'queue': '{"rows:0","KB":0}',
+    },
+
+    },
+    {'data': {
+        'source': 'engine_speed', 'target': 'ac_engine_speed',
+        'queue': '{"rows:0","KB":0}',
+    },
+
+    },
+
+    {'data': {
+        'source': 'sampled_phy_speed', 'target': 'stop_detection',
+        'queue': '{"rows:0","KB":0}',
+    },
+
+    },
+    {'data': {
+        'source': 'stop_detection', 'target': 'sink_stop_detection',
+        'queue': '{"rows:0","KB":0}',
+    },
+    },
 ]

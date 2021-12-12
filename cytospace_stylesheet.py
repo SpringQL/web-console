@@ -22,9 +22,19 @@ CYTOSPACE_STYLESHEET = [
     },
     {
         'selector': 'edge',
-                    'style': {
-                        'curve-style': 'bezier',  # The default curve style does not work with certain arrows
-                        'target-arrow-shape': 'triangle',
-                    }
+        'style': {
+            'curve-style': 'bezier',  # The default curve style does not work with certain arrows
+            'target-arrow-shape': 'triangle',
+        }
+    },
+    {
+        'selector': 'edge[queue]',
+        'style': {
+            "label": "data(queue)",
+            "text-rotation": "autorotate",
+            "text-margin-x": "1em",
+            "text-margin-y": "1em",
+            "text-wrap": "wrap",
+        }
     },
 ]

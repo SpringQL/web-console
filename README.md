@@ -9,7 +9,7 @@
 TODO docker
 
 ```bash
-pip install dash-cytoscape
+pip install dash-cytoscape Flask
 python main.py
 ```
 

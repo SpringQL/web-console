@@ -28,12 +28,12 @@ CYTOSPACE_STYLESHEET = [
         }
     },
     {
-        'selector': 'edge[queue]',
+        'selector': 'edge[queue_label]',
         'style': {
-            "label": "data(queue)",
+            "label": "data(queue_label)",
             "text-rotation": "autorotate",
             "text-margin-x": "1em",
-            "text-margin-y": "1em",
+            "text-margin-y": "0.5em",
             "text-wrap": "wrap",
         }
     },

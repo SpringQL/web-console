@@ -141,84 +141,84 @@ CYTOSPACE_ELEMENTS = [
     # edges
     {'data': {
         'source': 'src_air_conditioner', 'target': 'air_conditioner',
-        'queue': '{"rows":3,"KB":28}',
+        'queue_label': '3rows\n28KB',
     },
 
     },
     {'data': {
         'source': 'air_conditioner', 'target': 'ac_engine_speed',
-        'queue': '{"rows:0","KB":0}',
+        'queue_label': '0rows\n0KB',
     },
 
     },
     {'data': {
         'source': 'ac_engine_speed', 'target': 'sink_cockpit',
-        'queue': '{"rows:0","KB":0}',
+        'queue_label': '0rows\n0KB',
     },
 
     },
     {'data': {
         'source': 'ac_engine_speed', 'target': 'sink_upload',
-        'queue': '{"rows:0","KB":0}',
+        'queue_label': '0rows\n0KB',
     },
 
     },
 
     {'data': {
         'source': 'src_engine', 'target': 'sampled_engine',
-        'queue': '{"rows:0","KB":0}',
+        'queue_label': '0rows\n0KB',
     },
 
     },
 
     {'data': {
         'source': 'src_vehicle_control', 'target': 'sampled_speed',
-        'queue': '{"rows:0","KB":0}',
+        'queue_label': '0rows\n0KB',
     },
 
     },
     {'data': {
         'source': 'sampled_speed', 'target': 'sampled_phy_speed',
-        'queue': '{"rows:0","KB":0}',
+        'queue_label': '0rows\n0KB',
     },
 
     },
 
     {'data': {
         'source': 'sampled_engine', 'target': 'engine_speed',
-        'queue': '{"rows:0","KB":0}',
+        'queue_label': '0rows\n0KB',
     },
 
     },
     {'data': {
         'source': 'sampled_phy_speed', 'target': 'engine_speed',
-        'queue': '{"rows:0","KB":0}',
+        'queue_label': '0rows\n0KB',
     },
 
     },
 
     {'data': {
         'source': 'engine_speed', 'target': 'sink_health_check',
-        'queue': '{"rows:0","KB":0}',
+        'queue_label': '0rows\n0KB',
     },
 
     },
     {'data': {
         'source': 'engine_speed', 'target': 'ac_engine_speed',
-        'queue': '{"rows:0","KB":0}',
+        'queue_label': '0rows\n0KB',
     },
 
     },
 
     {'data': {
         'source': 'sampled_phy_speed', 'target': 'stop_detection',
-        'queue': '{"rows:0","KB":0}',
+        'queue_label': '0rows\n0KB',
     },
 
     },
     {'data': {
         'source': 'stop_detection', 'target': 'sink_stop_detection',
-        'queue': '{"rows:0","KB":0}',
+        'queue_label': '0rows\n0KB',
     },
     },
 ]

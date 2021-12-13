@@ -14,13 +14,15 @@ class Pipeline:
         for stream in streams:
             upstream_pump = self._find_upstream_pump(stream, pumps)
             cyto_node = CytoNode(stream, upstream_pump)
-            cyto_nodes.append(cyto_node)
+            cyto_nodes.append(cyto_node.to_cytoscape_element())
 
         cyto_edges = []
         for pump in pumps:
             for queue in pump['queues']:
                 cyto_edge = CytoEdge(queue)
-                cyto_edges.append(cyto_edge)
+                cyto_edges.append(cyto_edge.to_cytoscape_element())
+        
+        return cyto_nodes + cyto_edges
 
     def _find_upstream_pump(self, stream_view, pumps_view):
         upstream_pump_view = None
@@ -54,6 +56,8 @@ class CytoNode:
         if type != 'source-stream':
             assert upstream_pump_view, f'stream (not a source) must have a upstream pump: {stream_view}'
             self.stream_upstream_pump_def = upstream_pump_view['pump-def']
+        else:
+            self.stream_upstream_pump_def = None
 
     def to_cytoscape_element(self):
         return {

@@ -2,14 +2,19 @@
 
 ## Features
 
-- Pipeline / Resource View
+- Pipeline View
 
 ## Get Started
 
 TODO docker
 
 ```bash
-pip install dash-cytoscape
+brew install redis
+redis-server
+```
+
+```bash
+pip install dash-cytoscape Flask redis
 python main.py
 ```
 

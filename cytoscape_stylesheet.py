@@ -6,15 +6,23 @@ CYTOSCAPE_STYLESHEET = [
         'style': {
             'label': 'data(id)',
             'shape': 'rectangle',
+            'border-width': '2px',
+            "background-color": "#fff",
             "text-background-color": "#fff",
             "text-background-opacity": "0.5",
             "text-valign": "center",
         }
     },
     {
+        'selector': 'node:selected',
+        'style': {
+            "background-color": "#00f",
+        }
+    },
+    {
         'selector': 'node.source-stream',
         'style': {
-            'shape': 'triangle',
+            'shape': 'rhomboid',
         }
     },
     {
@@ -28,6 +36,7 @@ CYTOSCAPE_STYLESHEET = [
         'style': {
             'curve-style': 'bezier',  # The default curve style does not work with certain arrows
             'target-arrow-shape': 'triangle',
+            'target-arrow-color': '#333',
             "arrow-scale": 2.5,
         }
     },

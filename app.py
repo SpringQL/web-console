@@ -3,14 +3,18 @@
 import dash
 from flask import Flask, request
 
+from pipeline import Pipeline
+
 server = Flask(__name__)
 
 
 @server.route("/pipeline", methods=['POST'])
 def update_pipeline():
-    print(request)
-    j = request.get_json()
-    return j
+    pipeline_view = request.get_json()
+    pipeline = Pipeline(pipeline_view)
+    j = pipeline.to_cytoscape_elements_json()
+    # TODO redis put j
+    return 
 
 
 app = dash.Dash(__name__, server=server, url_base_pathname='/pipeline/')

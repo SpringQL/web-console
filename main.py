@@ -27,6 +27,8 @@ app.layout = html.Main([
     ], id='stream-view', style=styles.left_pane()),
 
     html.Div([
+        html.Button('Update Pipeline', id='btn-update-pipeline', n_clicks_timestamp=0),
+
         cyto.Cytoscape(
             id='cytoscape-pipeline',
             layout={

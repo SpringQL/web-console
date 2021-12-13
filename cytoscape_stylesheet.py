@@ -41,4 +41,29 @@ CYTOSCAPE_STYLESHEET = [
             "text-background-opacity": "0.5",
         }
     },
+
+    {
+        'selector': 'edge[pump_state ^= "stopped"]',
+        'style': {
+            'line-color': '#a0a0a0',
+        }
+    },
+    {
+        'selector': 'edge[pump_state ^= "started-operational"]',
+        'style': {
+            'line-color': '#50ff50',
+        }
+    },
+    {
+        'selector': 'edge[pump_state ^= "started-jammed"]',
+        'style': {
+            'line-color': '#50cccc',
+        }
+    },
+    {
+        'selector': 'edge[pump_state ^= "started-critical"]',
+        'style': {
+            'line-color': '#ff5050',
+        }
+    },
 ]

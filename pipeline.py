@@ -19,7 +19,7 @@ class Pipeline:
         cyto_edges = []
         for pump in pumps:
             for queue in pump['queues']:
-                cyto_edge = CytoEdge(queue)
+                cyto_edge = CytoEdge(queue, pump['state'])
                 cyto_edges.append(cyto_edge.to_cytoscape_element())
         
         return cyto_nodes + cyto_edges
@@ -47,7 +47,7 @@ class CytoNode:
         if type == 'source-stream':
             self.classes = 'source-stream'
         elif type == 'stream':
-            self.classes = 'sink-stream'
+            self.classes = 'stream'
         elif type == 'sink-stream':
             self.classes = 'sink-stream'
         else:
@@ -71,9 +71,10 @@ class CytoNode:
 
 
 class CytoEdge:
-    def __init__(self, queue_view):
+    def __init__(self, queue_view, pump_state):
         self.source = queue_view['upstream-id']
         self.target = queue_view['downstream-id']
+        self.pump_state = pump_state
 
         self.queue_label = f'{queue_view["num-rows"]}rows\n{queue_view["memory-usage-kilobytes"]}KB'
         if queue_view['num-rows-lost-so-far'] > 0:
@@ -85,6 +86,7 @@ class CytoEdge:
                 'source': self.source,
                 'target': self.target,
                 'queue_label': self.queue_label,
+                'pump_state': self.pump_state,
             },
             'classes': 'queue',
         }

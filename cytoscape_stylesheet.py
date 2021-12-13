@@ -45,19 +45,19 @@ CYTOSCAPE_STYLESHEET = [
     {
         'selector': 'edge[pump_state ^= "stopped"]',
         'style': {
-            'line-color': '#a0a0a0',
+            'line-color': '#c0c0c0',
         }
     },
     {
         'selector': 'edge[pump_state ^= "started-operational"]',
         'style': {
-            'line-color': '#50ff50',
+            'line-color': '#50cc50',
         }
     },
     {
         'selector': 'edge[pump_state ^= "started-jammed"]',
         'style': {
-            'line-color': '#50cccc',
+            'line-color': '#e0e020',
         }
     },
     {

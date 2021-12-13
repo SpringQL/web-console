@@ -149,6 +149,37 @@
                 }
             ]
         },
+
+        {
+            "id": "pu_sampling_and_projection_vehicle",
+            "pump-def": "CREATE PUMP ...",
+            "state": "started-operational",
+            "queues": [
+                {
+                    "upstream-id": "src_vehicle_control",
+                    "downstream-id": "sampled_speed",
+                    "num-rows": 0,
+                    "memory-usage-kilobytes": "0.1",
+                    "num-rows-lost-so-far": 0
+                }
+            ]
+        },
+        {
+            "id": "pu_phy_convert_speed",
+            "pump-def": "CREATE PUMP ...",
+            "state": "started-operational",
+            "queues": [
+                {
+                    "upstream-id": "sampled_speed",
+                    "downstream-id": "sampled_phy_speed",
+                    "num-rows": 0,
+                    "memory-usage-kilobytes": "0.1",
+                    "num-rows-lost-so-far": 0
+                }
+            ]
+        },
+
+
         {
             "id": "pu_join_engine_speed",
             "pump-def": "CREATE PUMP pu_join_engine_speed AS\\n  INSERT INTO engine_speed (ts_100ms, engine_rpm, phy_speed)\\n  SELECT e.ts_100ms, e.rpm, s.phy_speed\\n    FROM sampled_engine OVER (ROWS 1 PRECEDING) AS e\\n    LEFT OUTER JOIN sampled_phy_speed OVER (RANGE 1 seconds INTERVAL PRECEEDING) AS s\\n      ON e.ts_100ms = s.ts_100ms",
@@ -162,7 +193,7 @@
                     "num-rows-lost-so-far": 0
                 },
                 {
-                    "upstream-id": "sampled_speed",
+                    "upstream-id": "sampled_phy_speed",
                     "downstream-id": "engine_speed",
                     "num-rows": 0,
                     "memory-usage-kilobytes": "0.1",

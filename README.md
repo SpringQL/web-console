@@ -9,7 +9,12 @@
 TODO docker
 
 ```bash
-pip install dash-cytoscape Flask
+brew install redis
+redis-server
+```
+
+```bash
+pip install dash-cytoscape Flask redis
 python main.py
 ```
 

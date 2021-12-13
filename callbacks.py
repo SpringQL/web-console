@@ -13,8 +13,8 @@ def updateStreamName(nodes):
     if not nodes:
         return "(no stream selected)"
 
-    stream = nodes[0]
-    return stream['label']
+    node = nodes[0]
+    return node['id']
 
 
 @app.callback(Output('stream-def-content', 'children'),
@@ -23,8 +23,8 @@ def updateStreamDefContent(nodes):
     if not nodes:
         return ""
 
-    stream = nodes[0]
-    return stream['stream-def']
+    node = nodes[0]
+    return node['stream_def']
 
 
 @app.callback(Output('stream-upstream-content', 'children'),
@@ -33,8 +33,8 @@ def updateStreamUpstreamContent(nodes):
     if not nodes:
         return ""
 
-    stream = nodes[0]
-    return stream['stream-upstream']
+    node = nodes[0]
+    return node['stream_upstream_pump_def']
 
 
 @app.callback(Output('cytoscape-pipeline', 'elements'),

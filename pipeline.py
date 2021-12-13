@@ -47,7 +47,7 @@ class CytoNode:
         if type == 'source-stream':
             self.classes = 'source-stream'
         elif type == 'stream':
-            self.classes = 'sink-stream'
+            self.classes = 'stream'
         elif type == 'sink-stream':
             self.classes = 'sink-stream'
         else:

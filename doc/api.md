@@ -34,6 +34,8 @@ curl -L -X POST -H "Content-Type: application/json" -d @example/pipeline-in-vehi
 
 - `"id:"` (String): Pump name.
 - `"pump-def:"` (String): `CREATE PUMP` statement.
+- `"select-stream-ids:"` (Array of String): Stream names to select from.
+- `"insert-stream-id:"` (String): Stream name to insert into.
 
 ## `GET /task-graph`
 

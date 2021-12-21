@@ -38,7 +38,19 @@ app.layout = html.Main([
             style={'width': '100%', 'height': '800px'},
             stylesheet=CYTOSCAPE_STYLESHEET,
             elements={},
+        ),
+
+        cyto.Cytoscape(
+            id='cytoscape-task-graph',
+            layout={
+                'name': 'breadthfirst',
+                'roots': '.source-task'
+            },
+            style={'width': '100%', 'height': '800px'},
+            stylesheet=CYTOSCAPE_STYLESHEET,
+            elements={},
         )
+
     ], id='pipeline-view', style=styles.right_pane()),
 ], style=styles.main())
 

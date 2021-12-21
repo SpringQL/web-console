@@ -1,247 +1,353 @@
 {
-    "streams": [
+    "tasks": [
         {
-            "id": "src_air_conditioner",
-            "type": "source-stream",
-            "stream-def": "CREATE SOURCE STREAM src_air_conditioner (\n  ts TIMESTAMP NOT NULL ROWTIME,\n  car_temperature FLOAT NOT NULL,\n  raw_out_temperature FLOAT NOT NULL\n) SERVER NET_SERVER OPTIONS (\n  PROTOCOL 'TCP',\n  REMOTE_HOST '127.0.0.1,\n  REMOTE_PORT '19870'\n)"
+            "id": "source-task-src_air_conditioner",
+            "type": "source-task",
+            "avg-gain-bytes-per-sec": 10123
         },
         {
-            "id": "src_engine",
-            "type": "source-stream",
-            "stream-def": "CREATE SOURCE STREAM src_engine (\n  ts TIMESTAMP NOT NULL ROWTIME,\n  rpm FLOAT NOT NULL\n) SERVER NET_SERVER OPTIONS (\n  PROTOCOL 'TCP',\n  REMOTE_HOST '127.0.0.1,\n  REMOTE_PORT '19871'\n)"
+            "id": "source-task-src_engine",
+            "type": "source-task",
+            "avg-gain-bytes-per-sec": 2000.2
         },
         {
-            "id": "src_vehicle_control",
-            "type": "source-stream",
-            "stream-def": "CREATE SOURCE STREAM src_vehicle_control (\n  ts TIMESTAMP NOT NULL ROWTIME,\n  raw_speed FLOAT NOT NULL,\n  speed_signal_freq FLOAT NOT NULL\n) SERVER NET_SERVER OPTIONS (\n  PROTOCOL 'TCP',\n  REMOTE_HOST '127.0.0.1,\n  REMOTE_PORT '19872'\n)"
+            "id": "source-task-src_vehicle_control",
+            "type": "source-task",
+            "avg-gain-bytes-per-sec": 8000.8
         },
         {
-            "id": "air_conditioner",
-            "type": "stream",
-            "stream-def": "CREATE STREAM air_conditioner (\n  ts TIMESTAMP NOT NULL ROWTIME,\n  car_temperature FLOAT NOT NULL,\n  phy_out_temperature FLOAT NOT NULL\n)"
+            "id": "task-pu_air_conditioner_phy_conversion",
+            "type": "pump-row-task",
+            "avg-gain-bytes-per-sec": -10.5
         },
         {
-            "id": "ac_engine_speed",
-            "type": "stream",
-            "stream-def": "CREATE STREAM ac_engine_speed (\n  ts_100ms TIMESTAMP NOT NULL ROWTIME,\n  car_temperature FLOAT,\n  phy_out_temperature FLOAT,\n  engine_rpm FLOAT,\n  phy_speed FLOAT\n)"
+            "id": "task-pu_join_ac_and_engine_speed",
+            "type": "pump-window-task",
+            "avg-gain-bytes-per-sec": -10.5
         },
         {
-            "id": "sampled_engine",
-            "type": "stream",
-            "stream-def": "CREATE STREAM sampled_engine (\n  ts_100ms TIMESTAMP NOT NULL ROWTIME,\n  rpm FLOAT\n)"
+            "id": "task-pu_sampling_engine",
+            "type": "pump-row-task",
+            "avg-gain-bytes-per-sec": -20.5
         },
         {
-            "id": "engine_speed",
-            "type": "stream",
-            "stream-def": "CREATE STREAM engine_speed (\n  ts_100ms TIMESTAMP NOT NULL ROWTIME,\n  engine_rpm FLOAT\n,  phy_speed FLOAT\n)"
+            "id": "task-pu_join_engine_speed",
+            "type": "pump-window-task",
+            "avg-gain-bytes-per-sec": -10.5
         },
         {
-            "id": "sampled_speed",
-            "type": "stream",
-            "stream-def": "CREATE STREAM sampled_speed (\n  ts_100ms TIMESTAMP NOT NULL ROWTIME,\n  raw_speed FLOAT\n)"
+            "id": "task-pu_sampled_speed",
+            "type": "pump-row-task",
+            "avg-gain-bytes-per-sec": -80.5
         },
         {
-            "id": "sampled_phy_speed",
-            "type": "stream",
-            "stream-def": "CREATE STREAM sampled_phy_speed (\n  ts_100ms TIMESTAMP NOT NULL ROWTIME,\n  phy_speed FLOAT\n)"
+            "id": "task-pu_sampled_phy_speed",
+            "type": "pump-row-task",
+            "avg-gain-bytes-per-sec": -10.5
         },
         {
-            "id": "stop_detection",
-            "type": "stream",
-            "stream-def": "CREATE STREAM stop_detection (\n  ts_100ms TIMESTAMP NOT NULL ROWTIME,\n  stop BOOLEAN\n)"
+            "id": "task-pu_stop_detection",
+            "type": "pump-row-task",
+            "avg-gain-bytes-per-sec": -10.5
         },
         {
-            "id": "sink_cockpit",
-            "type": "sink-stream",
-            "stream-def": "CREATE SINK STREAM sink_cockpit (\n  ts_100ms TIMESTAMP NOT NULL ROWTIME,\n  car_temperature FLOAT NOT NULL,\n  phy_out_temperature FLOAT NOT NULL,\n  engine_rpm FLOAT NOT NULL,\n  phy_speed FLOAT NOT NULL\n)"
+            "id": "task-sink_cockpit",
+            "type": "pump-row-task",
+            "avg-gain-bytes-per-sec": 123
         },
         {
-            "id": "sink_upload",
-            "type": "sink-stream",
-            "stream-def": "CREATE SINK STREAM sink_upload (\n  ts_100ms TIMESTAMP NOT NULL ROWTIME,\n  car_temperature FLOAT,\n  phy_out_temperature FLOAT,\n  engine_rpm FLOAT,\n  phy_speed FLOAT\n)"
+            "id": "task-sink_upload",
+            "type": "pump-row-task",
+            "avg-gain-bytes-per-sec": 123
         },
         {
-            "id": "sink_health_check",
-            "type": "sink-stream",
-            "stream-def": "CREATE SINK STREAM sink_health_check (\n  ts_100ms TIMESTAMP NOT NULL ROWTIME,\n  engine_rpm FLOAT NOT NULL\n,  phy_speed FLOAT NOT NULL\n)"
+            "id": "task-sink_health_check",
+            "type": "pump-row-task",
+            "avg-gain-bytes-per-sec": 123
         },
         {
-            "id": "sink_stop_detection",
-            "type": "sink-stream",
-            "stream-def": "CREATE SINK STREAM sink_stop_detection (\n  ts_100ms TIMESTAMP NOT NULL ROWTIME,\n  stop BOOLEAN NOT NULL\n)"
+            "id": "task-sink_stop_detection",
+            "type": "pump-row-task",
+            "avg-gain-bytes-per-sec": 123
+        },
+        {
+            "id": "sink-task-sink_cockpit",
+            "type": "sink-task",
+            "avg-gain-bytes-per-sec": 123
+        },
+        {
+            "id": "sink-task-sink_upload",
+            "type": "sink-task",
+            "avg-gain-bytes-per-sec": 123
+        },
+        {
+            "id": "sink-task-sink_health_check",
+            "type": "sink-task",
+            "avg-gain-bytes-per-sec": 123
+        },
+        {
+            "id": "sink-task-sink_stop_detection",
+            "type": "sink-task",
+            "avg-gain-bytes-per-sec": 123
         }
     ],
-    "pumps": [
+    "queues": [
         {
             "id": "pu_air_conditioner_phy_conversion",
-            "pump-def": "CREATE PUMP pu_air_conditioner_phy_conversion AS\n  INSERT INTO air_conditioner (ts, car_temperature, phy_out_temperature)\n  SELECT ts, car_temperature, raw_out_temperature * 0.28\n    FROM src_air_conditioner",
-            "state": "started-operational",
-            "queues": [
-                {
-                    "upstream-id": "src_air_conditioner",
-                    "downstream-id": "air_conditioner",
-                    "num-rows": 3,
-                    "memory-usage-kilobytes": "0.83",
-                    "num-rows-lost-so-far": 0
-                }
-            ]
+            "upstream-task-id": "source-task-src_air_conditioner",
+            "downstream-task-id": "task-pu_air_conditioner_phy_conversion",
+            "row-queue": {
+                "num-rows": 3,
+                "total-bytes": 830,
+                "num-rows-used-so-far": 100,
+                "num-rows-purged-so-far": 0
+            },
+            "window-queue": null
         },
         {
-            "id": "pu_join_ac_and_engine_speed",
-            "pump-def": "CREATE PUMP pu_join_ac_and_engine_speed AS\n  INSERT INTO ac_engine_speed (ts_100ms, car_temperature, phy_out_temperature)\n  SELECT es.ts_100ms, ac.car_temperature, ac.phy_out_temperature, es.rpm, es.phy_speed\n    FROM engine_speed OVER (ROWS 1 PRECEDING) es\n      LEFT OUT JOIN air_conditioner OVER (RANGE INTERVAL 100, milliseconds PRECEDING) ac",
-            "state": "started-operational",
-            "queues": [
-                {
-                    "upstream-id": "air_conditioner",
-                    "downstream-id": "ac_engine_speed",
-                    "num-rows": 0,
-                    "memory-usage-kilobytes": "0.1",
-                    "num-rows-lost-so-far": 0
-                },
-                {
-                    "upstream-id": "engine_speed",
-                    "downstream-id": "ac_engine_speed",
-                    "num-rows": 0,
-                    "memory-usage-kilobytes": "0.1",
-                    "num-rows-lost-so-far": 0
-                }
-            ]
+            "id": "pu_join_ac_and_engine_speed1",
+            "upstream-task-id": "task-pu_air_conditioner_phy_conversion",
+            "downstream-task-id": "task-pu_join_ac_and_engine_speed",
+            "row-queue": null,
+            "window-queue": {
+                "total-bytes": 830,
+                "num-windows-used-so-far": 15,
+                "num-windows-purged-so-far": 0,
+                "num-rows-accepted-so-far": 98,
+                "num-rows-rejected-so-far": 2
+            }
+        },
+        {
+            "id": "pu_join_ac_and_engine_speed2",
+            "upstream-task-id": "task-pu_join_engine_speed",
+            "downstream-task-id": "task-pu_join_ac_and_engine_speed",
+            "row-queue": null,
+            "window-queue": {
+                "total-bytes": 10830,
+                "num-windows-used-so-far": 15,
+                "num-windows-purged-so-far": 0,
+                "num-rows-accepted-so-far": 8013,
+                "num-rows-rejected-so-far": 31
+            }
         },
         {
             "id": "pu_interpolate_ac_engine_speed",
-            "pump-def": "CREATE PUMP ...",
-            "state": "started-operational",
-            "queues": [
-                {
-                    "upstream-id": "ac_engine_speed",
-                    "downstream-id": "sink_cockpit",
-                    "num-rows": 0,
-                    "memory-usage-kilobytes": "0.1",
-                    "num-rows-lost-so-far": 0
-                }
-            ]
+            "upstream-task-id": "task-pu_join_ac_and_engine_speed",
+            "downstream-task-id": "task-sink_cockpit",
+            "row-queue": {
+                "num-rows": 3,
+                "total-bytes": 830,
+                "num-rows-used-so-far": 100,
+                "num-rows-purged-so-far": 0
+            },
+            "window-queue": null
         },
         {
             "id": "pu_passthrough_ac_engine_speed",
-            "pump-def": "CREATE PUMP ...",
-            "state": "started-operational",
-            "queues": [
-                {
-                    "upstream-id": "ac_engine_speed",
-                    "downstream-id": "sink_upload",
-                    "num-rows": 0,
-                    "memory-usage-kilobytes": "0.1",
-                    "num-rows-lost-so-far": 0
-                }
-            ]
+            "upstream-task-id": "task-pu_join_ac_and_engine_speed",
+            "downstream-task-id": "task-sink_upload",
+            "row-queue": {
+                "num-rows": 3,
+                "total-bytes": 830,
+                "num-rows-used-so-far": 100,
+                "num-rows-purged-so-far": 0
+            },
+            "window-queue": null
         },
         {
             "id": "pu_sampling_engine",
-            "pump-def": "CREATE PUMP pu_sampling_engine AS\n  INSERT INTO sampled_engine (ts_100ms, rpm)\n  SELECT DATETIME_TRUNC(100, milliseconds, ts) AS ts_100ms, FIRST_VALUE(rpm) AS rpm\n    FROM engine_speed\n    GROUP BY ts_100ms",
-            "state": "started-operational",
-            "queues": [
-                {
-                    "upstream-id": "src_engine",
-                    "downstream-id": "sampled_engine",
-                    "num-rows": 0,
-                    "memory-usage-kilobytes": "0.1",
-                    "num-rows-lost-so-far": 0
-                }
-            ]
+            "upstream-task-id": "source-task-src_engine",
+            "downstream-task-id": "task-pu_sampling_engine",
+            "row-queue": {
+                "num-rows": 3,
+                "total-bytes": 830,
+                "num-rows-used-so-far": 100,
+                "num-rows-purged-so-far": 0
+            },
+            "window-queue": null
         },
-
         {
             "id": "pu_sampling_and_projection_vehicle",
-            "pump-def": "CREATE PUMP ...",
-            "state": "started-operational",
-            "queues": [
-                {
-                    "upstream-id": "src_vehicle_control",
-                    "downstream-id": "sampled_speed",
-                    "num-rows": 0,
-                    "memory-usage-kilobytes": "0.1",
-                    "num-rows-lost-so-far": 0
-                }
-            ]
+            "upstream-task-id": "source-task-src_vehicle_control",
+            "downstream-task-id": "task-pu_sampled_speed",
+            "row-queue": {
+                "num-rows": 3,
+                "total-bytes": 830,
+                "num-rows-used-so-far": 100,
+                "num-rows-purged-so-far": 0
+            },
+            "window-queue": null
         },
         {
             "id": "pu_phy_convert_speed",
-            "pump-def": "CREATE PUMP ...",
-            "state": "started-operational",
-            "queues": [
-                {
-                    "upstream-id": "sampled_speed",
-                    "downstream-id": "sampled_phy_speed",
-                    "num-rows": 0,
-                    "memory-usage-kilobytes": "0.1",
-                    "num-rows-lost-so-far": 0
-                }
-            ]
+            "upstream-task-id": "task-pu_sampled_speed",
+            "downstream-task-id": "task-pu_sampled_phy_speed",
+            "row-queue": {
+                "num-rows": 3,
+                "total-bytes": 830,
+                "num-rows-used-so-far": 100,
+                "num-rows-purged-so-far": 0
+            },
+            "window-queue": null
         },
-
-
         {
             "id": "pu_join_engine_speed",
-            "pump-def": "CREATE PUMP pu_join_engine_speed AS\n  INSERT INTO engine_speed (ts_100ms, engine_rpm, phy_speed)\n  SELECT e.ts_100ms, e.rpm, s.phy_speed\n    FROM sampled_engine OVER (ROWS 1 PRECEDING) AS e\n    LEFT OUTER JOIN sampled_phy_speed OVER (RANGE 1 seconds INTERVAL PRECEEDING) AS s\n      ON e.ts_100ms = s.ts_100ms",
-            "state": "started-operational",
-            "queues": [
-                {
-                    "upstream-id": "sampled_engine",
-                    "downstream-id": "engine_speed",
-                    "num-rows": 0,
-                    "memory-usage-kilobytes": "0.1",
-                    "num-rows-lost-so-far": 0
-                },
-                {
-                    "upstream-id": "sampled_phy_speed",
-                    "downstream-id": "engine_speed",
-                    "num-rows": 0,
-                    "memory-usage-kilobytes": "0.1",
-                    "num-rows-lost-so-far": 0
-                }
-            ]
+            "upstream-task-id": "task-pu_sampling_engine",
+            "downstream-task-id": "task-pu_join_engine_speed",
+            "row-queue": null,
+            "window-queue": {
+                "total-bytes": 5041,
+                "num-windows-used-so-far": 15,
+                "num-windows-purged-so-far": 0,
+                "num-rows-accepted-so-far": 8013,
+                "num-rows-rejected-so-far": 31
+            }
+        },
+        {
+            "id": "pu_join_engine_speed",
+            "upstream-task-id": "task-pu_sampled_phy_speed",
+            "downstream-task-id": "task-pu_join_engine_speed",
+            "row-queue": null,
+            "window-queue": {
+                "total-bytes": 3041,
+                "num-windows-used-so-far": 15,
+                "num-windows-purged-so-far": 0,
+                "num-rows-accepted-so-far": 8013,
+                "num-rows-rejected-so-far": 31
+            }
         },
         {
             "id": "pu_interpolate_engine_speed",
-            "pump-def": "CREATE PUMP ...",
-            "state": "started-operational",
-            "queues": [
-                {
-                    "upstream-id": "engine_speed",
-                    "downstream-id": "sink_health_check",
-                    "num-rows": 0,
-                    "memory-usage-kilobytes": "0.1",
-                    "num-rows-lost-so-far": 0
-                }
-            ]
+            "upstream-task-id": "task-pu_join_engine_speed",
+            "downstream-task-id": "task-sink_health_check",
+            "row-queue": {
+                "num-rows": 3,
+                "total-bytes": 830,
+                "num-rows-used-so-far": 100,
+                "num-rows-purged-so-far": 0
+            },
+            "window-queue": null
         },
         {
             "id": "pu_selection_phy_speed",
-            "pump-def": "CREATE PUMP ...",
-            "state": "started-operational",
-            "queues": [
-                {
-                    "upstream-id": "sampled_phy_speed",
-                    "downstream-id": "stop_detection",
-                    "num-rows": 0,
-                    "memory-usage-kilobytes": "0.1",
-                    "num-rows-lost-so-far": 0
-                }
-            ]
+            "upstream-task-id": "task-pu_sampled_phy_speed",
+            "downstream-task-id": "task-pu_stop_detection",
+            "row-queue": {
+                "num-rows": 3,
+                "total-bytes": 830,
+                "num-rows-used-so-far": 100,
+                "num-rows-purged-so-far": 0
+            },
+            "window-queue": null
         },
         {
             "id": "pu_interpolate_stop_detection",
-            "pump-def": "CREATE PUMP ...",
-            "state": "started-operational",
-            "queues": [
-                {
-                    "upstream-id": "stop_detection",
-                    "downstream-id": "sink_stop_detection",
-                    "num-rows": 0,
-                    "memory-usage-kilobytes": "0.1",
-                    "num-rows-lost-so-far": 0
-                }
-            ]
+            "upstream-task-id": "task-pu_stop_detection",
+            "downstream-task-id": "task-sink_stop_detection",
+            "row-queue": {
+                "num-rows": 3,
+                "total-bytes": 830,
+                "num-rows-used-so-far": 100,
+                "num-rows-purged-so-far": 0
+            },
+            "window-queue": null
+        },
+        {
+            "id": "sink-server1",
+            "upstream-task-id": "task-sink_cockpit",
+            "downstream-task-id": "sink-task-sink_cockpit",
+            "row-queue": {
+                "num-rows": 3,
+                "total-bytes": 1028,
+                "num-rows-used-so-far": 100,
+                "num-rows-purged-so-far": 0
+            },
+            "window-queue": null
+        },
+        {
+            "id": "sink-server2",
+            "upstream-task-id": "task-sink_upload",
+            "downstream-task-id": "sink-task-sink_upload",
+            "row-queue": {
+                "num-rows": 3,
+                "total-bytes": 1028,
+                "num-rows-used-so-far": 100,
+                "num-rows-purged-so-far": 0
+            },
+            "window-queue": null
+        },
+        {
+            "id": "sink-server3",
+            "upstream-task-id": "task-sink_health_check",
+            "downstream-task-id": "sink-task-sink_health_check",
+            "row-queue": {
+                "num-rows": 3,
+                "total-bytes": 1028,
+                "num-rows-used-so-far": 100,
+                "num-rows-purged-so-far": 0
+            },
+            "window-queue": null
+        },
+        {
+            "id": "sink-server4",
+            "upstream-task-id": "task-sink_stop_detection",
+            "downstream-task-id": "sink-task-sink_stop_detection",
+            "row-queue": {
+                "num-rows": 3,
+                "total-bytes": 1028,
+                "num-rows-used-so-far": 100,
+                "num-rows-purged-so-far": 0
+            },
+            "window-queue": null
+        },
+        {
+            "id": "in-memory-queue1",
+            "upstream-task-id": "sink-task-sink_cockpit",
+            "downstream-task-id": null,
+            "row-queue": {
+                "num-rows": 3,
+                "total-bytes": 1028,
+                "num-rows-used-so-far": 100,
+                "num-rows-purged-so-far": 0
+            },
+            "window-queue": null
+        },
+        {
+            "id": "in-memory-queue2",
+            "upstream-task-id": "sink-task-sink_upload",
+            "downstream-task-id": null,
+            "row-queue": {
+                "num-rows": 3,
+                "total-bytes": 1028,
+                "num-rows-used-so-far": 100,
+                "num-rows-purged-so-far": 0
+            },
+            "window-queue": null
+        },
+        {
+            "id": "in-memory-queue3",
+            "upstream-task-id": "sink-task-sink_health_check",
+            "downstream-task-id": null,
+            "row-queue": {
+                "num-rows": 3,
+                "total-bytes": 1028,
+                "num-rows-used-so-far": 100,
+                "num-rows-purged-so-far": 0
+            },
+            "window-queue": null
+        },
+        {
+            "id": "in-memory-queue4",
+            "upstream-task-id": "sink-task-sink_stop_detection",
+            "downstream-task-id": null,
+            "row-queue": {
+                "num-rows": 3,
+                "total-bytes": 1028,
+                "num-rows-used-so-far": 100,
+                "num-rows-purged-so-far": 0
+            },
+            "window-queue": null
         }
+
     ]
 }

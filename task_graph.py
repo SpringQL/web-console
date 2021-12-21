@@ -70,13 +70,17 @@ class CytoEdge:
         self.target = queue_view['downstream-task-id']
         if not self.target:
             self.target = 'host-app'
+            self.classes = 'in-memory-queue'
 
         if queue_view['row-queue']:
             q = queue_view['row-queue']
             self.queue_label = f'{q["num-rows"]}rows\n{q["total-bytes"] * 1e-3:.2g}KB\n{q["num-rows-used-so-far"]} rows used\n{q["num-rows-purged-so-far"]} rows purged'
+            if not hasattr(self, 'classes'):
+                self.classes = 'row-queue'
         elif queue_view['window-queue']:
             q = queue_view['window-queue']
             self.queue_label = f'{q["total-bytes"] * 1e-3:.2g}KB\n{q["num-windows-used-so-far"]} wins used\n{q["num-windows-purged-so-far"]} wins purged\n{q["num-rows-accepted-so-far"]} rows accepted\n{q["num-rows-rejected-so-far"]} rows rejected'
+            self.classes = 'window-queue'
 
 
     def to_cytoscape_element(self):
@@ -86,5 +90,5 @@ class CytoEdge:
                 'target': self.target,
                 'queue_label': self.queue_label,
             },
-            'classes': 'queue',
+            'classes': self.classes,
         }

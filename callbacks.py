@@ -37,13 +37,13 @@ def updateStreamUpstreamContent(nodes):
     return node['stream_upstream_pump_def']
 
 
-# @app.callback(Output('cytoscape-pipeline', 'elements'),
-#               Input('btn-update-pipeline', 'n_clicks_timestamp'))
-# def updatePipelineElements(_btn):
-#     j = redis_client.get('pipeline')
-#     if not j:
-#         j = '{}'
-#     return json.loads(j)
+@app.callback(Output('cytoscape-pipeline', 'elements'),
+              Input('btn-update-pipeline', 'n_clicks_timestamp'))
+def updatePipelineElements(_btn):
+    j = redis_client.get('pipeline')
+    if not j:
+        j = '{}'
+    return json.loads(j)
 
 
 @app.callback(Output('cytoscape-task-graph', 'elements'),

@@ -47,7 +47,7 @@ def updatePipelineElements(_btn):
 
 
 @app.callback(Output('cytoscape-task-graph', 'elements'),
-              Input('btn-update-pipeline', 'n_clicks_timestamp'))
+              Input('btn-update-task-graph', 'n_clicks_timestamp'))
 def updateTaskGraphElements(_btn):
     j = redis_client.get('task-graph')
     if not j:

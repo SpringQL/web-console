@@ -12,46 +12,57 @@ from cytoscape_stylesheet import CYTOSCAPE_STYLESHEET
 
 app.layout = html.Main([
     html.Div([
-        html.H3(id='stream-name'),
+        html.Div([
+            html.H3('Task graph performance summary'),
+        ], id='task-graph-summary', style=styles.left_pane()),
 
-        html.H4('Stream Definition', id='stream-def'),
-        html.Pre(children=[
-            html.Code(id='stream-def-content'),
-        ]),
+        html.Div([
+            html.Button('Update Task Graph', id='btn-update-task-graph',
+                        n_clicks_timestamp=0),
 
-        html.H4('Upstream Pump Definition', id='stream-upstream'),
-        html.Pre(children=[
-            html.Code(id='stream-upstream-content')
-        ]),
-    ], id='stream-view', style=styles.left_pane()),
-
+            cyto.Cytoscape(
+                id='cytoscape-task-graph',
+                layout={
+                    'name': 'breadthfirst',
+                    'roots': '.source-task'
+                },
+                style={'width': '100%', 'height': '800px'},
+                stylesheet=CYTOSCAPE_STYLESHEET,
+                elements={},
+            ),
+        ], id='task-graph-view', style=styles.right_pane()),
+    ], style=styles.main()),
     html.Div([
-        html.Button('Update Pipeline', id='btn-update-pipeline',
-                    n_clicks_timestamp=0),
+        html.Div([
+            html.H3(id='stream-name'),
 
-        cyto.Cytoscape(
-            id='cytoscape-pipeline',
-            layout={
-                'name': 'breadthfirst',
-                'roots': '.source-stream'
-            },
-            style={'width': '100%', 'height': '800px'},
-            stylesheet=CYTOSCAPE_STYLESHEET,
-            elements={},
-        ),
+            html.H4('Stream Definition', id='stream-def'),
+            html.Pre(children=[
+                html.Code(id='stream-def-content'),
+            ]),
 
-        cyto.Cytoscape(
-            id='cytoscape-task-graph',
-            layout={
-                'name': 'breadthfirst',
-                'roots': '.source-task'
-            },
-            style={'width': '100%', 'height': '800px'},
-            stylesheet=CYTOSCAPE_STYLESHEET,
-            elements={},
-        )
+            html.H4('Upstream Pump Definition', id='stream-upstream'),
+            html.Pre(children=[
+                html.Code(id='stream-upstream-content')
+            ]),
+        ], id='stream-view', style=styles.left_pane()),
 
-    ], id='pipeline-view', style=styles.right_pane()),
+        html.Div([
+            html.Button('Update Pipeline', id='btn-update-pipeline',
+                        n_clicks_timestamp=0),
+
+            cyto.Cytoscape(
+                id='cytoscape-pipeline',
+                layout={
+                    'name': 'breadthfirst',
+                    'roots': '.source-stream'
+                },
+                style={'width': '100%', 'height': '800px'},
+                stylesheet=CYTOSCAPE_STYLESHEET,
+                elements={},
+            ),
+        ], id='pipeline-view', style=styles.right_pane()),
+    ], style=styles.main())
 ], style=styles.main())
 
 

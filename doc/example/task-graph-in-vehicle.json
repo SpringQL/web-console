@@ -1,0 +1,353 @@
+{
+    "tasks": [
+        {
+            "id": "source-task-src_air_conditioner",
+            "type": "source-task",
+            "avg-gain-bytes-per-sec": 10123
+        },
+        {
+            "id": "source-task-src_engine",
+            "type": "source-task",
+            "avg-gain-bytes-per-sec": 2000.2
+        },
+        {
+            "id": "source-task-src_vehicle_control",
+            "type": "source-task",
+            "avg-gain-bytes-per-sec": 8000.8
+        },
+        {
+            "id": "task-pu_air_conditioner_phy_conversion",
+            "type": "pump-row-task",
+            "avg-gain-bytes-per-sec": -10.5
+        },
+        {
+            "id": "task-pu_join_ac_and_engine_speed",
+            "type": "pump-window-task",
+            "avg-gain-bytes-per-sec": -10.5
+        },
+        {
+            "id": "task-pu_sampling_engine",
+            "type": "pump-row-task",
+            "avg-gain-bytes-per-sec": -20.5
+        },
+        {
+            "id": "task-pu_join_engine_speed",
+            "type": "pump-window-task",
+            "avg-gain-bytes-per-sec": -10.5
+        },
+        {
+            "id": "task-pu_sampled_speed",
+            "type": "pump-row-task",
+            "avg-gain-bytes-per-sec": -80.5
+        },
+        {
+            "id": "task-pu_sampled_phy_speed",
+            "type": "pump-row-task",
+            "avg-gain-bytes-per-sec": -10.5
+        },
+        {
+            "id": "task-pu_stop_detection",
+            "type": "pump-row-task",
+            "avg-gain-bytes-per-sec": -10.5
+        },
+        {
+            "id": "task-sink_cockpit",
+            "type": "pump-row-task",
+            "avg-gain-bytes-per-sec": 123
+        },
+        {
+            "id": "task-sink_upload",
+            "type": "pump-row-task",
+            "avg-gain-bytes-per-sec": 123
+        },
+        {
+            "id": "task-sink_health_check",
+            "type": "pump-row-task",
+            "avg-gain-bytes-per-sec": 123
+        },
+        {
+            "id": "task-sink_stop_detection",
+            "type": "pump-row-task",
+            "avg-gain-bytes-per-sec": 123
+        },
+        {
+            "id": "sink-task-sink_cockpit",
+            "type": "sink-task",
+            "avg-gain-bytes-per-sec": 123
+        },
+        {
+            "id": "sink-task-sink_upload",
+            "type": "sink-task",
+            "avg-gain-bytes-per-sec": 123
+        },
+        {
+            "id": "sink-task-sink_health_check",
+            "type": "sink-task",
+            "avg-gain-bytes-per-sec": 123
+        },
+        {
+            "id": "sink-task-sink_stop_detection",
+            "type": "sink-task",
+            "avg-gain-bytes-per-sec": 123
+        }
+    ],
+    "queues": [
+        {
+            "id": "pu_air_conditioner_phy_conversion",
+            "upstream-task-id": "source-task-src_air_conditioner",
+            "downstream-task-id": "task-pu_air_conditioner_phy_conversion",
+            "row-queue": {
+                "num-rows": 3,
+                "total-bytes": 830,
+                "num-rows-used-so-far": 100,
+                "num-rows-purged-so-far": 0
+            },
+            "window-queue": null
+        },
+        {
+            "id": "pu_join_ac_and_engine_speed1",
+            "upstream-task-id": "task-pu_air_conditioner_phy_conversion",
+            "downstream-task-id": "task-pu_join_ac_and_engine_speed",
+            "row-queue": null,
+            "window-queue": {
+                "total-bytes": 830,
+                "num-windows-used-so-far": 15,
+                "num-windows-purged-so-far": 0,
+                "num-rows-accepted-so-far": 98,
+                "num-rows-rejected-so-far": 2
+            }
+        },
+        {
+            "id": "pu_join_ac_and_engine_speed2",
+            "upstream-task-id": "task-pu_join_engine_speed",
+            "downstream-task-id": "task-pu_join_ac_and_engine_speed",
+            "row-queue": null,
+            "window-queue": {
+                "total-bytes": 10830,
+                "num-windows-used-so-far": 15,
+                "num-windows-purged-so-far": 0,
+                "num-rows-accepted-so-far": 8013,
+                "num-rows-rejected-so-far": 31
+            }
+        },
+        {
+            "id": "pu_interpolate_ac_engine_speed",
+            "upstream-task-id": "task-pu_join_ac_and_engine_speed",
+            "downstream-task-id": "task-sink_cockpit",
+            "row-queue": {
+                "num-rows": 3,
+                "total-bytes": 830,
+                "num-rows-used-so-far": 100,
+                "num-rows-purged-so-far": 0
+            },
+            "window-queue": null
+        },
+        {
+            "id": "pu_passthrough_ac_engine_speed",
+            "upstream-task-id": "task-pu_join_ac_and_engine_speed",
+            "downstream-task-id": "task-sink_upload",
+            "row-queue": {
+                "num-rows": 3,
+                "total-bytes": 830,
+                "num-rows-used-so-far": 100,
+                "num-rows-purged-so-far": 0
+            },
+            "window-queue": null
+        },
+        {
+            "id": "pu_sampling_engine",
+            "upstream-task-id": "source-task-src_engine",
+            "downstream-task-id": "task-pu_sampling_engine",
+            "row-queue": {
+                "num-rows": 3,
+                "total-bytes": 830,
+                "num-rows-used-so-far": 100,
+                "num-rows-purged-so-far": 0
+            },
+            "window-queue": null
+        },
+        {
+            "id": "pu_sampling_and_projection_vehicle",
+            "upstream-task-id": "source-task-src_vehicle_control",
+            "downstream-task-id": "task-pu_sampled_speed",
+            "row-queue": {
+                "num-rows": 3,
+                "total-bytes": 830,
+                "num-rows-used-so-far": 100,
+                "num-rows-purged-so-far": 0
+            },
+            "window-queue": null
+        },
+        {
+            "id": "pu_phy_convert_speed",
+            "upstream-task-id": "task-pu_sampled_speed",
+            "downstream-task-id": "task-pu_sampled_phy_speed",
+            "row-queue": {
+                "num-rows": 3,
+                "total-bytes": 830,
+                "num-rows-used-so-far": 100,
+                "num-rows-purged-so-far": 0
+            },
+            "window-queue": null
+        },
+        {
+            "id": "pu_join_engine_speed",
+            "upstream-task-id": "task-pu_sampling_engine",
+            "downstream-task-id": "task-pu_join_engine_speed",
+            "row-queue": null,
+            "window-queue": {
+                "total-bytes": 5041,
+                "num-windows-used-so-far": 15,
+                "num-windows-purged-so-far": 0,
+                "num-rows-accepted-so-far": 8013,
+                "num-rows-rejected-so-far": 31
+            }
+        },
+        {
+            "id": "pu_join_engine_speed",
+            "upstream-task-id": "task-pu_sampled_phy_speed",
+            "downstream-task-id": "task-pu_join_engine_speed",
+            "row-queue": null,
+            "window-queue": {
+                "total-bytes": 3041,
+                "num-windows-used-so-far": 15,
+                "num-windows-purged-so-far": 0,
+                "num-rows-accepted-so-far": 8013,
+                "num-rows-rejected-so-far": 31
+            }
+        },
+        {
+            "id": "pu_interpolate_engine_speed",
+            "upstream-task-id": "task-pu_join_engine_speed",
+            "downstream-task-id": "task-sink_health_check",
+            "row-queue": {
+                "num-rows": 3,
+                "total-bytes": 830,
+                "num-rows-used-so-far": 100,
+                "num-rows-purged-so-far": 0
+            },
+            "window-queue": null
+        },
+        {
+            "id": "pu_selection_phy_speed",
+            "upstream-task-id": "task-pu_sampled_phy_speed",
+            "downstream-task-id": "task-pu_stop_detection",
+            "row-queue": {
+                "num-rows": 3,
+                "total-bytes": 830,
+                "num-rows-used-so-far": 100,
+                "num-rows-purged-so-far": 0
+            },
+            "window-queue": null
+        },
+        {
+            "id": "pu_interpolate_stop_detection",
+            "upstream-task-id": "task-pu_stop_detection",
+            "downstream-task-id": "task-sink_stop_detection",
+            "row-queue": {
+                "num-rows": 3,
+                "total-bytes": 830,
+                "num-rows-used-so-far": 100,
+                "num-rows-purged-so-far": 0
+            },
+            "window-queue": null
+        },
+        {
+            "id": "sink-server1",
+            "upstream-task-id": "task-sink_cockpit",
+            "downstream-task-id": "sink-task-sink_cockpit",
+            "row-queue": {
+                "num-rows": 3,
+                "total-bytes": 1028,
+                "num-rows-used-so-far": 100,
+                "num-rows-purged-so-far": 0
+            },
+            "window-queue": null
+        },
+        {
+            "id": "sink-server2",
+            "upstream-task-id": "task-sink_upload",
+            "downstream-task-id": "sink-task-sink_upload",
+            "row-queue": {
+                "num-rows": 3,
+                "total-bytes": 1028,
+                "num-rows-used-so-far": 100,
+                "num-rows-purged-so-far": 0
+            },
+            "window-queue": null
+        },
+        {
+            "id": "sink-server3",
+            "upstream-task-id": "task-sink_health_check",
+            "downstream-task-id": "sink-task-sink_health_check",
+            "row-queue": {
+                "num-rows": 3,
+                "total-bytes": 1028,
+                "num-rows-used-so-far": 100,
+                "num-rows-purged-so-far": 0
+            },
+            "window-queue": null
+        },
+        {
+            "id": "sink-server4",
+            "upstream-task-id": "task-sink_stop_detection",
+            "downstream-task-id": "sink-task-sink_stop_detection",
+            "row-queue": {
+                "num-rows": 3,
+                "total-bytes": 1028,
+                "num-rows-used-so-far": 100,
+                "num-rows-purged-so-far": 0
+            },
+            "window-queue": null
+        },
+        {
+            "id": "in-memory-queue1",
+            "upstream-task-id": "sink-task-sink_cockpit",
+            "downstream-task-id": null,
+            "row-queue": {
+                "num-rows": 3,
+                "total-bytes": 1028,
+                "num-rows-used-so-far": 100,
+                "num-rows-purged-so-far": 0
+            },
+            "window-queue": null
+        },
+        {
+            "id": "in-memory-queue2",
+            "upstream-task-id": "sink-task-sink_upload",
+            "downstream-task-id": null,
+            "row-queue": {
+                "num-rows": 3,
+                "total-bytes": 1028,
+                "num-rows-used-so-far": 100,
+                "num-rows-purged-so-far": 0
+            },
+            "window-queue": null
+        },
+        {
+            "id": "in-memory-queue3",
+            "upstream-task-id": "sink-task-sink_health_check",
+            "downstream-task-id": null,
+            "row-queue": {
+                "num-rows": 3,
+                "total-bytes": 1028,
+                "num-rows-used-so-far": 100,
+                "num-rows-purged-so-far": 0
+            },
+            "window-queue": null
+        },
+        {
+            "id": "in-memory-queue4",
+            "upstream-task-id": "sink-task-sink_stop_detection",
+            "downstream-task-id": null,
+            "row-queue": {
+                "num-rows": 3,
+                "total-bytes": 1028,
+                "num-rows-used-so-far": 100,
+                "num-rows-purged-so-far": 0
+            },
+            "window-queue": null
+        }
+
+    ]
+}

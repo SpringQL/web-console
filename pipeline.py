@@ -18,8 +18,9 @@ class Pipeline:
 
         cyto_edges = []
         for pump in pumps:
-            for queue in pump['queues']:
-                cyto_edge = CytoEdge(queue, pump['state'])
+            s_insert = pump['insert-stream-id']
+            for s_select in pump['select-stream-ids']:
+                cyto_edge = CytoEdge(s_select, s_insert)
                 cyto_edges.append(cyto_edge.to_cytoscape_element())
         
         return cyto_nodes + cyto_edges
@@ -27,8 +28,7 @@ class Pipeline:
     def _find_upstream_pump(self, stream_view, pumps_view):
         upstream_pump_view = None
         for pump_view in pumps_view:
-            q0 = pump_view['queues'][0]
-            upstream_id = q0['downstream-id']
+            upstream_id = pump_view['insert-stream-id']
             if upstream_id == stream_view['id']:
                 upstream_pump_view = pump_view
                 break
@@ -71,22 +71,15 @@ class CytoNode:
 
 
 class CytoEdge:
-    def __init__(self, queue_view, pump_state):
-        self.source = queue_view['upstream-id']
-        self.target = queue_view['downstream-id']
-        self.pump_state = pump_state
-
-        self.queue_label = f'{queue_view["num-rows"]}rows\n{queue_view["memory-usage-kilobytes"]}KB'
-        if queue_view['num-rows-lost-so-far'] > 0:
-            self.queue_label += f'\n{queue_view["num-rows-lost-so-far"]}rows lost'
+    def __init__(self, stream_select, stream_insert):
+        self.source = stream_select
+        self.target = stream_insert
 
     def to_cytoscape_element(self):
         return {
             'data': {
                 'source': self.source,
                 'target': self.target,
-                'queue_label': self.queue_label,
-                'pump_state': self.pump_state,
             },
-            'classes': 'queue',
+            'classes': 'pump-edge',
         }

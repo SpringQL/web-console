@@ -75,173 +75,92 @@
         {
             "id": "pu_air_conditioner_phy_conversion",
             "pump-def": "CREATE PUMP pu_air_conditioner_phy_conversion AS\n  INSERT INTO air_conditioner (ts, car_temperature, phy_out_temperature)\n  SELECT ts, car_temperature, raw_out_temperature * 0.28\n    FROM src_air_conditioner",
-            "state": "started-operational",
-            "queues": [
-                {
-                    "upstream-id": "src_air_conditioner",
-                    "downstream-id": "air_conditioner",
-                    "num-rows": 3,
-                    "memory-usage-kilobytes": "0.83",
-                    "num-rows-lost-so-far": 0
-                }
-            ]
+            "select-stream-ids": [
+                "src_air_conditioner"
+            ],
+            "insert-stream-id": "air_conditioner"
         },
         {
             "id": "pu_join_ac_and_engine_speed",
             "pump-def": "CREATE PUMP pu_join_ac_and_engine_speed AS\n  INSERT INTO ac_engine_speed (ts_100ms, car_temperature, phy_out_temperature)\n  SELECT es.ts_100ms, ac.car_temperature, ac.phy_out_temperature, es.rpm, es.phy_speed\n    FROM engine_speed OVER (ROWS 1 PRECEDING) es\n      LEFT OUT JOIN air_conditioner OVER (RANGE INTERVAL 100, milliseconds PRECEDING) ac",
-            "state": "started-operational",
-            "queues": [
-                {
-                    "upstream-id": "air_conditioner",
-                    "downstream-id": "ac_engine_speed",
-                    "num-rows": 0,
-                    "memory-usage-kilobytes": "0.1",
-                    "num-rows-lost-so-far": 0
-                },
-                {
-                    "upstream-id": "engine_speed",
-                    "downstream-id": "ac_engine_speed",
-                    "num-rows": 0,
-                    "memory-usage-kilobytes": "0.1",
-                    "num-rows-lost-so-far": 0
-                }
-            ]
+            "select-stream-ids": [
+                "air_conditioner",
+                "engine_speed"
+            ],
+            "insert-stream-id": "ac_engine_speed"
         },
         {
             "id": "pu_interpolate_ac_engine_speed",
             "pump-def": "CREATE PUMP ...",
-            "state": "started-operational",
-            "queues": [
-                {
-                    "upstream-id": "ac_engine_speed",
-                    "downstream-id": "sink_cockpit",
-                    "num-rows": 0,
-                    "memory-usage-kilobytes": "0.1",
-                    "num-rows-lost-so-far": 0
-                }
-            ]
+            "select-stream-ids": [
+                "ac_engine_speed"
+            ],
+            "insert-stream-id": "sink_cockpit"
         },
         {
             "id": "pu_passthrough_ac_engine_speed",
             "pump-def": "CREATE PUMP ...",
-            "state": "started-operational",
-            "queues": [
-                {
-                    "upstream-id": "ac_engine_speed",
-                    "downstream-id": "sink_upload",
-                    "num-rows": 0,
-                    "memory-usage-kilobytes": "0.1",
-                    "num-rows-lost-so-far": 0
-                }
-            ]
+            "select-stream-ids": [
+                "ac_engine_speed"
+            ],
+            "insert-stream-id": "sink_upload"
         },
         {
             "id": "pu_sampling_engine",
             "pump-def": "CREATE PUMP pu_sampling_engine AS\n  INSERT INTO sampled_engine (ts_100ms, rpm)\n  SELECT DATETIME_TRUNC(100, milliseconds, ts) AS ts_100ms, FIRST_VALUE(rpm) AS rpm\n    FROM engine_speed\n    GROUP BY ts_100ms",
-            "state": "started-operational",
-            "queues": [
-                {
-                    "upstream-id": "src_engine",
-                    "downstream-id": "sampled_engine",
-                    "num-rows": 0,
-                    "memory-usage-kilobytes": "0.1",
-                    "num-rows-lost-so-far": 0
-                }
-            ]
+            "select-stream-ids": [
+                "src_engine"
+            ],
+            "insert-stream-id": "sampled_engine"
         },
-
         {
             "id": "pu_sampling_and_projection_vehicle",
             "pump-def": "CREATE PUMP ...",
-            "state": "started-operational",
-            "queues": [
-                {
-                    "upstream-id": "src_vehicle_control",
-                    "downstream-id": "sampled_speed",
-                    "num-rows": 0,
-                    "memory-usage-kilobytes": "0.1",
-                    "num-rows-lost-so-far": 0
-                }
-            ]
+            "select-stream-ids": [
+                "src_vehicle_control"
+            ],
+            "insert-stream-id": "sampled_speed"
         },
         {
             "id": "pu_phy_convert_speed",
             "pump-def": "CREATE PUMP ...",
-            "state": "started-operational",
-            "queues": [
-                {
-                    "upstream-id": "sampled_speed",
-                    "downstream-id": "sampled_phy_speed",
-                    "num-rows": 0,
-                    "memory-usage-kilobytes": "0.1",
-                    "num-rows-lost-so-far": 0
-                }
-            ]
+            "select-stream-ids": [
+                "sampled_speed"
+            ],
+            "insert-stream-id": "sampled_phy_speed"
         },
-
-
         {
             "id": "pu_join_engine_speed",
             "pump-def": "CREATE PUMP pu_join_engine_speed AS\n  INSERT INTO engine_speed (ts_100ms, engine_rpm, phy_speed)\n  SELECT e.ts_100ms, e.rpm, s.phy_speed\n    FROM sampled_engine OVER (ROWS 1 PRECEDING) AS e\n    LEFT OUTER JOIN sampled_phy_speed OVER (RANGE 1 seconds INTERVAL PRECEEDING) AS s\n      ON e.ts_100ms = s.ts_100ms",
-            "state": "started-operational",
-            "queues": [
-                {
-                    "upstream-id": "sampled_engine",
-                    "downstream-id": "engine_speed",
-                    "num-rows": 0,
-                    "memory-usage-kilobytes": "0.1",
-                    "num-rows-lost-so-far": 0
-                },
-                {
-                    "upstream-id": "sampled_phy_speed",
-                    "downstream-id": "engine_speed",
-                    "num-rows": 0,
-                    "memory-usage-kilobytes": "0.1",
-                    "num-rows-lost-so-far": 0
-                }
-            ]
+            "select-stream-ids": [
+                "sampled_engine",
+                "sampled_phy_speed"
+            ],
+            "insert-stream-id": "engine_speed"
         },
         {
             "id": "pu_interpolate_engine_speed",
             "pump-def": "CREATE PUMP ...",
-            "state": "started-operational",
-            "queues": [
-                {
-                    "upstream-id": "engine_speed",
-                    "downstream-id": "sink_health_check",
-                    "num-rows": 0,
-                    "memory-usage-kilobytes": "0.1",
-                    "num-rows-lost-so-far": 0
-                }
-            ]
+            "select-stream-ids": [
+                "engine_speed"
+            ],
+            "insert-stream-id": "sink_health_check"
         },
         {
             "id": "pu_selection_phy_speed",
             "pump-def": "CREATE PUMP ...",
-            "state": "started-operational",
-            "queues": [
-                {
-                    "upstream-id": "sampled_phy_speed",
-                    "downstream-id": "stop_detection",
-                    "num-rows": 0,
-                    "memory-usage-kilobytes": "0.1",
-                    "num-rows-lost-so-far": 0
-                }
-            ]
+            "select-stream-ids": [
+                "sampled_phy_speed"
+            ],
+            "insert-stream-id": "stop_detection"
         },
         {
             "id": "pu_interpolate_stop_detection",
             "pump-def": "CREATE PUMP ...",
-            "state": "started-operational",
-            "queues": [
-                {
-                    "upstream-id": "stop_detection",
-                    "downstream-id": "sink_stop_detection",
-                    "num-rows": 0,
-                    "memory-usage-kilobytes": "0.1",
-                    "num-rows-lost-so-far": 0
-                }
-            ]
+            "select-stream-ids": [
+                "stop_detection"
+            ],
+            "insert-stream-id": "sink_stop_detection"
         }
     ]
 }

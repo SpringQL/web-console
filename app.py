@@ -6,6 +6,7 @@ from flask import Flask, request
 from redis_client import redis_client
 
 from pipeline import Pipeline
+from task_graph import TaskGraph
 
 server = Flask(__name__)
 
@@ -16,6 +17,15 @@ def update_pipeline():
     pipeline = Pipeline(pipeline_view)
     j = pipeline.to_cytoscape_elements_json()
     redis_client.set('pipeline', j)
+    return ''
+
+
+@server.route("/task-graph", methods=['POST'])
+def update_task_graph():
+    task_graph_view = request.get_json()
+    task_graph = TaskGraph(task_graph_view)
+    j = task_graph.to_cytoscape_elements_json()
+    redis_client.set('task-graph', j)
     return ''
 
 

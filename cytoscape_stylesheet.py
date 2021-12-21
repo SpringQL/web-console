@@ -11,6 +11,8 @@ CYTOSCAPE_STYLESHEET = [
             "text-background-color": "#fff",
             "text-background-opacity": "0.5",
             "text-valign": "center",
+            "text-wrap": "ellipsis",
+            "text-max-width": '8em',
         }
     },
     {
@@ -26,18 +28,49 @@ CYTOSCAPE_STYLESHEET = [
         }
     },
     {
+        'selector': 'node.source-task',
+        'style': {
+            'shape': 'rhomboid',
+        }
+    },
+    {
         'selector': 'node.sink-stream',
         'style': {
             'shape': 'diamond',
         }
     },
     {
+        'selector': 'node.sink-task',
+        'style': {
+            'shape': 'diamond',
+        }
+    },
+    {
+        'selector': 'node.host-app',
+        'style': {
+            'shape': 'vee',
+        }
+    },
+    {
         'selector': 'edge',
         'style': {
+            'width': '2px',
             'curve-style': 'bezier',  # The default curve style does not work with certain arrows
             'target-arrow-shape': 'triangle',
             'target-arrow-color': '#333',
             "arrow-scale": 2.5,
+        }
+    },
+    {
+        'selector': 'edge.in-memory-queue',
+        'style': {
+            'line-style': 'dashed',
+        }
+    },
+    {
+        'selector': 'edge.window-queue',
+        'style': {
+            'width': '5px',
         }
     },
     {
@@ -48,31 +81,6 @@ CYTOSCAPE_STYLESHEET = [
             "text-wrap": "wrap",
             "text-background-color": "#fff",
             "text-background-opacity": "0.5",
-        }
-    },
-
-    {
-        'selector': 'edge[pump_state ^= "stopped"]',
-        'style': {
-            'line-color': '#c0c0c0',
-        }
-    },
-    {
-        'selector': 'edge[pump_state ^= "started-operational"]',
-        'style': {
-            'line-color': '#50cc50',
-        }
-    },
-    {
-        'selector': 'edge[pump_state ^= "started-jammed"]',
-        'style': {
-            'line-color': '#e0e020',
-        }
-    },
-    {
-        'selector': 'edge[pump_state ^= "started-critical"]',
-        'style': {
-            'line-color': '#ff5050',
         }
     },
 ]

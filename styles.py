@@ -3,6 +3,7 @@
 def main():
     return {
         'display': 'flex',
+        'flex-wrap': 'wrap',
         'width': '1200px',
         'margin': 'auto',
         'background-color': '#f0f0f0',

@@ -39,8 +39,17 @@ def updateStreamUpstreamContent(nodes):
 
 @app.callback(Output('cytoscape-pipeline', 'elements'),
               Input('btn-update-pipeline', 'n_clicks_timestamp'))
-def updateElements(_btn):
+def updatePipelineElements(_btn):
     j = redis_client.get('pipeline')
+    if not j:
+        j = '{}'
+    return json.loads(j)
+
+
+@app.callback(Output('cytoscape-task-graph', 'elements'),
+              Input('btn-update-task-graph', 'n_clicks_timestamp'))
+def updateTaskGraphElements(_btn):
+    j = redis_client.get('task-graph')
     if not j:
         j = '{}'
     return json.loads(j)

@@ -74,12 +74,12 @@ class CytoEdge:
 
         if queue_view['row-queue']:
             q = queue_view['row-queue']
-            self.queue_label = f'{q["num-rows"]}rows\n{q["total-bytes"] * 1e-3:.2g}KB\n{q["num-rows-used-so-far"]} rows used\n{q["num-rows-purged-so-far"]} rows purged'
+            self.queue_label = f'{q["num-rows"]}rows\n{q["total-bytes"] * 1e-3:.2g}KB\n{q["num-rows-used-so-far"]}rows U\n{q["num-rows-purged-so-far"]}rows P'
             if not hasattr(self, 'classes'):
                 self.classes = 'row-queue'
         elif queue_view['window-queue']:
             q = queue_view['window-queue']
-            self.queue_label = f'{q["total-bytes"] * 1e-3:.2g}KB\n{q["num-windows-used-so-far"]} wins used\n{q["num-windows-purged-so-far"]} wins purged\n{q["num-rows-accepted-so-far"]} rows accepted\n{q["num-rows-rejected-so-far"]} rows rejected'
+            self.queue_label = f'{q["total-bytes"] * 1e-3:.2g}KB\n{q["num-windows-used-so-far"]}wins U\n{q["num-windows-purged-so-far"]}wins P\n{q["num-rows-accepted-so-far"]}rows A\n{q["num-rows-rejected-so-far"]}rows R'
             self.classes = 'window-queue'
 
 

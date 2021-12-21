@@ -19,7 +19,7 @@ app.layout = html.Main([
             html.Code(id='stream-def-content'),
         ]),
 
-        html.H4('Upstream Pump', id='stream-upstream'),
+        html.H4('Upstream Pump Definition', id='stream-upstream'),
         html.Pre(children=[
             html.Code(id='stream-upstream-content')
         ]),

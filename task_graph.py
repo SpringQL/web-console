@@ -79,7 +79,7 @@ class CytoEdge:
                 self.classes = 'row-queue'
         elif queue_view['window-queue']:
             q = queue_view['window-queue']
-            self.queue_label = f'{q["total-bytes"] * 1e-3:.2g}KB\n{q["num-windows-used-so-far"]}wins U\n{q["num-windows-purged-so-far"]}wins P\n{q["num-rows-accepted-so-far"]}rows A\n{q["num-rows-rejected-so-far"]}rows R'
+            self.queue_label = f'{q["num-open-windows"]}wins\n{q["total-bytes"] * 1e-3:.2g}KB\n{q["num-windows-used-so-far"]}wins U\n{q["num-windows-purged-so-far"]}wins P\n{q["num-rows-accepted-so-far"]}rows A\n{q["num-rows-rejected-so-far"]}rows R'
             self.classes = 'window-queue'
 
 

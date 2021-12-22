@@ -85,6 +85,7 @@ curl -L -X POST -H "Content-Type: application/json" -d @example/task-graph-in-ve
 
 #### _WindowQueue_ object
 
+- `"num-open-windows:` (Number): Current number of open windows in queue.
 - `"total-bytes:"` (Number): How much memory is currently used by queue.
 - `"num-windows-used-so-far":` (Number)
 - `"num-windows-purged-so-far":` (Number)

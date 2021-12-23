@@ -4,14 +4,14 @@ CYTOSCAPE_STYLESHEET = [
     {
         'selector': 'node',
         'style': {
-            'label': 'data(id)',
+            'label': 'data(node_label)',
             'shape': 'rectangle',
             'border-width': '2px',
             "background-color": "#fff",
             "text-background-color": "#fff",
             "text-background-opacity": "0.5",
             "text-valign": "center",
-            "text-wrap": "ellipsis",
+            "text-wrap": "wrap",
             "text-max-width": '8em',
         }
     },

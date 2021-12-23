@@ -22,7 +22,7 @@ class Pipeline:
             for s_select in pump['select-stream-ids']:
                 cyto_edge = CytoEdge(s_select, s_insert)
                 cyto_edges.append(cyto_edge.to_cytoscape_element())
-        
+
         return cyto_nodes + cyto_edges
 
     def _find_upstream_pump(self, stream_view, pumps_view):
@@ -65,6 +65,7 @@ class CytoNode:
                 'id': self.id,
                 'stream_def': self.stream_def,
                 'stream_upstream_pump_def': self.stream_upstream_pump_def,
+                'node_label': self.id,
             },
             'classes': self.classes,
         }

@@ -63,8 +63,7 @@ curl -L -X POST -H "Content-Type: application/json" -d @example/task-graph-in-ve
 - `"id:"` (String): Task name.
 - `"type"` (String): One of:
   - `"source-task"`
-  - `"pump-row-task"`
-  - `"pump-window-task"`
+  - `"pump-task"`
   - `"sink-task"`
 - `"avg-gain-bytes-per-sec:"` (Number): Memory gain throughput of this task.
 
@@ -80,14 +79,8 @@ curl -L -X POST -H "Content-Type: application/json" -d @example/task-graph-in-ve
 
 - `"num-rows":` (Number): Current number of rows in queue.
 - `"total-bytes:"` (Number): How much memory is currently used by queue.
-- `"num-rows-used-so-far":` (Number)
-- `"num-rows-purged-so-far":` (Number)
 
 #### _WindowQueue_ object
 
-- `"num-open-windows:` (Number): Current number of open windows in queue.
+- `"num-rows-waiting:` (Number): Current number of open windows in queue.
 - `"total-bytes:"` (Number): How much memory is currently used by queue.
-- `"num-windows-used-so-far":` (Number)
-- `"num-windows-purged-so-far":` (Number)
-- `"num-rows-accepted-so-far":` (Number)
-- `"num-rows-rejected-so-far":` (Number)

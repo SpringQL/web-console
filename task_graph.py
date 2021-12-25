@@ -40,13 +40,14 @@ class TaskGraph:
 class CytoNode:
     def __init__(self, task_view):
         self.id = task_view['id']
-        self.avg_gain_bytes_per_sec = float(task_view['avg-gain-bytes-per-sec'])
+        self.avg_gain_bytes_per_sec = float(
+            task_view['avg-gain-bytes-per-sec'])
 
         type = task_view['type']
         self.classes = type
 
         #self.task_label = f'{self.id[:10]}\n{self.avg_gain_bytes_per_sec:.2g}B/s'
-        self.task_label = f'{self.id[:20]}..\n({self.avg_gain_bytes_per_sec * 1e-3:.2g}KB/s)'
+        self.task_label = f'{self.id[:20]}..\n({self.avg_gain_bytes_per_sec:,.1f}B/s)'
 
     def to_cytoscape_element(self):
         return {
@@ -57,7 +58,7 @@ class CytoNode:
             },
             'classes': self.classes,
         }
-    
+
     @classmethod
     def host_app(cls):
         return {
@@ -85,7 +86,6 @@ class CytoEdge:
             q = queue_view['window-queue']
             self.queue_label = f'{q["num-rows-waiting"]}rows(wait)\n{q["total-bytes"] * 1e-3:.2g}KB'
             self.classes = 'window-queue'
-
 
     def to_cytoscape_element(self):
         return {

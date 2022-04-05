@@ -1,4 +1,4 @@
-# Copyright (c) 2021 TOYOTA MOTOR CORPORATION. Licensed under MIT OR Apache-2.0.
+# This file is part of https://github.com/SpringQL/web-console which is licensed under MIT OR Apache-2.0. See file LICENSE-MIT or LICENSE-APACHE for full license details.
 
 CYTOSCAPE_STYLESHEET = [
     {
